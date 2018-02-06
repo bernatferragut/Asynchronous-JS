@@ -1,1 +1,24 @@
 /* CSS */
+
+body{
+    background-color: beige;
+}
+
+.flex-container {
+    margin-top: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.grid-container {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.pad {
+    width: 200px;
+    height: 200px;
+    background-color: bisque;
+}
