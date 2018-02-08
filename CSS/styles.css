@@ -4,6 +4,14 @@ body{
     background-color: beige;
 }
 
+button {
+    background-color: bisque;
+}
+
+button:hover {
+    background-color: red;
+}
+
 .flex-container {
     margin-top: 10vh;
     display: flex;
@@ -20,5 +28,5 @@ body{
 .pad {
     width: 200px;
     height: 200px;
-    background-color: bisque;
+    background-color: #cacbbb;
 }
