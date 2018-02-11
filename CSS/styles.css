@@ -19,6 +19,12 @@ button:hover {
     justify-content: center;
 }
 
+.flex-container2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .grid-container {
     display: grid;
     grid-gap: 10px;
@@ -29,4 +35,7 @@ button:hover {
     width: 200px;
     height: 200px;
     background-color: #cacbbb;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 4em;
+    color: darkgray;
 }
