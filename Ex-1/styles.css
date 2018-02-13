@@ -1,0 +1,41 @@
+/* CSS */
+
+body{
+    background-color: beige;
+}
+
+button {
+    background-color: bisque;
+}
+
+button:hover {
+    background-color: red;
+}
+
+.flex-container {
+    margin-top: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-container2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.grid-container {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.pad {
+    width: 200px;
+    height: 200px;
+    background-color: #cacbbb;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 4em;
+    color: darkgray;
+}

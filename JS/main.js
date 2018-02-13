@@ -1,131 +1,73 @@
 // JS
 
-// Selections => List of pads
-let selectedPads = document.getElementsByClassName('pad');
-
-// Creating a 9 pairs list 
-let myPairs = [1,1,2,2,3,3,4,4,5]; // potential numbers
-console.log('original: ' + myPairs);
-
-// Creating a Shuffled 9 pairs list algorithm
-function myShuffle(myPairs) {
-     // shuffle algorithm
-     for( let i = myPairs.length-1; i>=0; i-- ) {
-        // random number (0-9) of the list
-        let randMyPairs =  Math.floor(Math.random() * (i+1));
-        let itemAtIndex = myPairs[randMyPairs];
-        // values permutations
-        myPairs[randMyPairs] = myPairs[i];
-        myPairs[i] = itemAtIndex;
-     }
-     console.log('shuffled: ' + myPairs);
-     return myPairs;
-}
-let shuffledPairs = myShuffle(myPairs);
-//------------------------------------------------------------
-// Now we have the 9 pairs list + and the same list shuffled => myPairs + shuffledPairs
-//------------------------------------------------------------
-
+// selections
+let buttonStartStop = document.querySelector('#start-stop');
+let buttonReset = document.querySelector('#reset');
+let buttonRecord = document.querySelector('#record');
+let timer = document.querySelector('h2');
+let records = document.querySelector('h3');
+let myP = document.createElement('p');
 
 // Global variables
-let clickedArray = [];
-let interval;
-let started = false;
-let time = 0;
-let ready = true;
-let  numCompleted = 0;
+let timeSeconds = 0;
+let timeHundredSeconds = 0
+let startStopActive = false;
+let timerTime;
 
-// functions executions
+// function Initialisation
 setUp();
 
-// function definitions 
+// function definitions
+
 function setUp() {
-    for(let i=0; i<selectedPads.length; i++) {
-        // cell creations
-        cell = selectedPads[i];
-        cell.paired = false;
-        cell.clicked = false;
-        cell.value = shuffledPairs[i];
-        // cell mouseenter
-        cell.addEventListener('mouseenter', function(){
-            if(cell.paired==false && cell.clicked==false){
-                this.style.background = 'orange';
-            }
-        });
-        // cell mouseleave
-        cell.addEventListener('mouseleave', function() {
-            if(cell.paired==false && cell.clicked==false){
-                this.style.background = '#cacbbb';
-            }
-        });
-        // cell click
-        cell.addEventListener('click', function(){
-            // when ready is false no click event handlers can be made
-            if(ready == false){
-                return;
-            }
-            // start timer
-            startTimer();
-            // start
-            if(this.clicked == false && this.paired == false){
-                clickedArray.push(this);
-                showContent(this);
-            }
-            // matching pairs
-            if(clickedArray.length == 2) {
-                // a matching pair is found and passed as complete
-                complete(clickedArray[0]);
-                complete(clickedArray[1]);
-                // clicked array cleaned
-                clickedArray = [];
-                // when finished
-                if(numCompleted == 8) {
-                    alert('Youn won in ' + time + 'seconds');
-                    clearInterval(interval);
-                }
-            } else {
-                // if matching pair is not found
-                ready = false;
-                setTimeout(function() {
-                    // after 500 ms
-                },500);
-                hide(clickedArray[0]);
-                hide(clickedArray[1]);
+    // STARTSTOP
+    buttonStartStop.addEventListener('click', function(){
+        startStop();
+    });
+    // RESET
+    buttonReset.addEventListener('click', function() {
+        reset();
+    });
+    // RECORD
+    buttonRecord.addEventListener('click', function(){
+        record()
+    });
 
-                clickedArray = [];
-                ready = HTMLPictureElement;
+}
 
+function startStop() {
+    if( startStopActive == false) {
+        startStopActive = true;
+        console.log('activated')
+        timerTime = setInterval(function(){
+            timeHundredSeconds++;
+            if(timeHundredSeconds == 100) {
+                timeSeconds++;
+                timeHundredSeconds = 0;
             }
-        });
+            console.log(timeSeconds+':'+timeHundredSeconds);
+            timer.innerHTML =timeSeconds+':'+timeHundredSeconds;
+        },10);
+    }else{
+        startStopActive = false;
+        console.log('stoped');
+        clearInterval(timerTime);
+        // timer.innerHTML =timeSeconds+':'+timeHundredSeconds;
     }
+
 }
 
-function showContent(cell) {
-    cell.style.background = 'red';
-    cell.innerHTML = cell.value;
-    cell.clicked = true;
-}
-
-function startTimer() {
-    if(started == false) {
-        interval = setInterval(function() {
-            time ++;
-            document.getElementById('timer').innerHTML = 't: ' + time;
-        }, 1000)
-    }
-    started = true;
-}
-
-function hide(cell) {
-    cell.style.background = '#cacbbb';
-    cell.innerHTML = '';
-    cell.clicked = false;
-}
-
-function complete(cell) {
-    numCompleted++;
-    cell.paired = true;
-    cell.style.background = 'green';
+function reset() {
+    timeSeconds = 0;
+    timeHundredSeconds = 0;
+    timer.innerHTML =timeSeconds+':'+timeHundredSeconds+'0';
+    records.removeChild(myP);
 }
 
 
+function record() {
+    clearInterval(timerTime);
+    myP.innerHTML = timer.innerHTML =timeSeconds+':'+timeHundredSeconds;
+    records.appendChild(myP);
+    //timerTime();
+}
