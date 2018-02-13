@@ -1,27 +1,13 @@
 // JS
 
-// Selections
+// Selections => List of pads
 let selectedPads = document.getElementsByClassName('pad');
 
-// Logic
-
-function activated(event) {
-    if(isClicked == false) {
-        this.style.backgroundColor = 'red';
-        isClicked = true;
-        console.log('now--->clicked');
-    } else {
-        this.style.backgroundColor = '#cacbbb';
-        isClicked = false;
-        console.log('now--->never clicked');
-    }
-
-}
-
-// Creating a Shuffle list 
+// Creating a 9 pairs list 
 let myPairs = [1,1,2,2,3,3,4,4,5]; // potential numbers
 console.log('original: ' + myPairs);
 
+// Creating a Shuffled 9 pairs list algorithm
 function myShuffle(myPairs) {
      // shuffle algorithm
      for( let i = myPairs.length-1; i>=0; i-- ) {
@@ -35,14 +21,52 @@ function myShuffle(myPairs) {
      console.log('shuffled: ' + myPairs);
      return myPairs;
 }
-
-;
 let shuffledPairs = myShuffle(myPairs);
+//------------------------------------------------------------
+// Now we have the 9 pairs list + and the same list shuffled => myPairs + shuffledPairs
+//------------------------------------------------------------
 
-// Action
-let isClicked = false;
-for(let i=0; i<selectedPads.length; i++) {
-    selectedPads[i].addEventListener('click', activated, isClicked);
-    selectedPads[i].innerHTML = shuffledPairs[i];
+
+// LOGIC
+
+// functions executions
+setUp();
+
+// function definitions 
+function setUp() {
+    for(let i=0; i<selectedPads.length; i++) {
+        // cell creations
+        cell = selectedPads[i];
+        cell.paired = false;
+        cell.clicked = false;
+        cell.value = shuffledPairs[i];
+        // cell mouseenter
+        cell.addEventListener('mouseenter', function(){
+            if(cell.paired==false && cell.clicked==false){
+                this.style.background = 'orange';
+            }
+        });
+        // cell mouseleave
+        cell.addEventListener('mouseleave', function() {
+            if(cell.paired==false && cell.clicked==false){
+                this.style.background = '#cacbbb';
+            }
+        });
+        // cell click
+        cell.addEventListener('click', function(){
+            // cell active
+            if (cell.clicked == false) {
+                cell.clicked = true;
+                this.style.background = 'lightgreen';
+                console.log('now--->clicked');
+            } else {
+                cell.clicked = false;
+                console.log('now--->never clicked');
+            }
+            
+            
+        });
+    }
 }
+
 
